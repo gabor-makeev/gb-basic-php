@@ -5,7 +5,6 @@ $heading = "This is a page heading";
 $year = date("Y");
 
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
