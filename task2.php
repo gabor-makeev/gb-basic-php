@@ -9,7 +9,7 @@ do {
 $taskList = "$userName, сегодня у вас запланировано $tasksNumber приоритетных задачи на день:" . PHP_EOL;
 $totalTaskTimeEstimate = 0;
 
-for ($taskCount = 1; $taskCount <= $tasksNumber; $taskCount++) {
+for ($i = 1; $i <= $tasksNumber; $i++) {
     $taskTitle = readline("Какая задача стоит перед вами сегодня?" . PHP_EOL);
     $taskTimeEstimate = (int)readline("Сколько примерно времени эта задача займет?" . PHP_EOL);
 
