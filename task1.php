@@ -8,8 +8,16 @@ $answerOption3 = 1937;
 
 do {
     $answer = (int)readline("$question Варианты: $answerOption1, $answerOption2 или $answerOption3 год" . PHP_EOL);
-} while ($answer !== $answerOption1 && $answer !== $answerOption2 && $answer !== $answerOption3);
 
-$result = $answer === $answerOption2 ? "Поздравляю, ответ верный. Конец" : "Ответ неверный. Конец";
+    if ($answer === $answerOption1 || $answer === $answerOption3) {
+        $result = "Ответ неверный. Конец";
+        break;
+    }
+
+    if ($answer === $answerOption2) {
+        $result = "Поздравляю, ответ верный. Конец";
+        break;
+    }
+} while (true);
 
 echo $result . PHP_EOL;
