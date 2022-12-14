@@ -1,23 +1,25 @@
 <?php
 
-$question = "В каком году была построена эйфелева башня?";
+$arr1 = [];
+$arr2 = [];
 
-$answerOption1 = 1787;
-$answerOption2 = 1887;
-$answerOption3 = 1937;
+$arrSize = rand(10, 20);
 
-do {
-    $answer = (int)readline("$question Варианты: $answerOption1, $answerOption2 или $answerOption3 год" . PHP_EOL);
+for ($i = 0; $i < $arrSize; $i++) {
+    $arr1[] = rand(0, 100);
+    $arr2[] = rand(0, 100);
+}
 
-    if ($answer === $answerOption1 || $answer === $answerOption3) {
-        $result = "Ответ неверный. Конец";
-        break;
-    }
+$result = [];
 
-    if ($answer === $answerOption2) {
-        $result = "Поздравляю, ответ верный. Конец";
-        break;
-    }
-} while (true);
+for ($i = 0; $i < $arrSize; $i++) {
+    $result[] = $arr1[$i] * $arr2[$i];
+}
 
-echo $result . PHP_EOL;
+print_r($result);
+
+/*
+ * Цикл перемножающий элементы двух массивов можно было сократить до следующего:
+ * for ($i = 0; $i < $arrSize; $result[] = $arr1[$i] * $arr2[$i++]);
+ * Но мне показалось что этот вариант менее читаемый
+ */

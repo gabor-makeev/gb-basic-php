@@ -1,22 +1,51 @@
 <?php
 
-$userName = readline("Как вас зовут?" . PHP_EOL);
+$wishes = [
+    "здоровья",
+    "воображения",
+    "счастья",
+    "вдохновения",
+    "везения"
+];
+
+$epithets = [
+    "безмерного",
+    "космического",
+    "восхитительного",
+    "бесконечного",
+    "безудержного",
+    "прекрасного",
+    "замечательного"
+];
+
+$wishesLimit = 3;
 
 do {
-    $tasksNumber = (int)readline("Сколько перед вами стоит задач?" . PHP_EOL);
-} while ($tasksNumber <= 0);
+    $userName = readline("Пожалуйста, введите имя именинника:" . PHP_EOL);
+} while (!$userName);
 
-$taskList = "$userName, сегодня у вас запланировано $tasksNumber приоритетных задачи на день:" . PHP_EOL;
-$totalTaskTimeEstimate = 0;
+$congratulationTemplate = "Дорогой(ая) $userName, от всего сердца поздравляю тебя с днем рождения, желаю";
 
-for ($i = 1; $i <= $tasksNumber; $i++) {
-    $taskTitle = readline("Какая задача стоит перед вами сегодня?" . PHP_EOL);
-    $taskTimeEstimate = (int)readline("Сколько примерно времени эта задача займет?" . PHP_EOL);
+for ($i = 1; $i <= $wishesLimit; $i++) {
+    $randomWishKey = array_rand($wishes);
+    $randomEpithetKey = array_rand($epithets);
 
-    $taskList .= "- $taskTitle ({$taskTimeEstimate}ч)" . PHP_EOL;
-    $totalTaskTimeEstimate += $taskTimeEstimate;
+    $congratulationWish = "{$epithets[$randomEpithetKey]} {$wishes[$randomWishKey]}";
+
+    switch ($i) {
+        case $wishesLimit:
+            $separator = " и ";
+            break;
+        case 1:
+            $separator = " ";
+            break;
+        default:
+            $separator = ", ";
+    }
+
+    $congratulationTemplate = implode($separator, [$congratulationTemplate, $congratulationWish]);
+
+    unset($wishes[$randomWishKey], $epithets[$randomEpithetKey]);
 }
 
-$taskList .= "Примерное время выполнения плана = {$totalTaskTimeEstimate}ч" . PHP_EOL;
-
-echo $taskList;
+echo "$congratulationTemplate!" . PHP_EOL;
