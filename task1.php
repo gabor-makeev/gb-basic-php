@@ -3,7 +3,7 @@
 $arr = range(0, 10);
 
 array_map(function ($el) {
-    return ($el & 1 ? "нечетное" : "четное") . PHP_EOL;
+    return $el & 1 ? "нечетное" : "четное";
 }, $arr);
 
 // Если бы мы хотели выводить результат:
@@ -15,5 +15,5 @@ array_map(function ($el) {
 // Альтернативное решение
 //
 // array_map(function ($el) {
-//     return ($el % 2 === 0 ? "четное" : "нечетное") . PHP_EOL;
+//     return $el % 2 === 0 ? "четное" : "нечетное";
 // }, $arr);
