@@ -1,25 +1,23 @@
 <?php
 
-$arr1 = [];
-$arr2 = [];
+$arr = range(0, 10);
 
-$arrSize = rand(10, 20);
+$getNumbersParity = function (int $el): string {
+    return $el & 1 ? "нечетное" : "четное";
+};
 
-for ($i = 0; $i < $arrSize; $i++) {
-    $arr1[] = rand(0, 100);
-    $arr2[] = rand(0, 100);
-}
+$arrByParity = array_map($getNumbersParity, $arr);
 
-$result = [];
+print_r($arrByParity);
 
-for ($i = 0; $i < $arrSize; $i++) {
-    $result[] = $arr1[$i] * $arr2[$i];
-}
+// Если бы мы хотели выводить результат:
+//
+// array_map(function ($el) {
+//     echo ($el & 1 ? "нечетное" : "четное") . PHP_EOL;
+// }, $arr);
 
-print_r($result);
-
-/*
- * Цикл перемножающий элементы двух массивов можно было сократить до следующего:
- * for ($i = 0; $i < $arrSize; $result[] = $arr1[$i] * $arr2[$i++]);
- * Но мне показалось что этот вариант менее читаемый
- */
+// Альтернативное решение
+//
+// $getNumbersParity = function (int $el): string {
+//     return $el % 2 === 0 ? "четное" : "нечетное";
+// };
