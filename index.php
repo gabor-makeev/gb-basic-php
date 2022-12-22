@@ -10,6 +10,15 @@ $user3 = new User("Lisa", "lisa@test.test");
 
 $task = new Task($user1, "John's task");
 
+$taskDescription = $task->getDescription();
+$taskAssignee = $task->getUser()->getUsername();
+$taskStatus = $task->isDone() ? "Done" : "Not done";
+
+echo "Task:
+Description: $taskDescription
+Assignee: $taskAssignee
+Status: $taskStatus" . PHP_EOL;
+
 TaskService::addComment($user2, $task, "Sam's comment to John's task");
 TaskService::addComment($user3, $task, "Lisa's comment to John's task");
 
