@@ -25,7 +25,7 @@ class Task
         $this->comments[] = $comment;
     }
 
-    public function markAsDone()
+    public function markAsDone(): void
     {
         if (!$this->isDone) {
             $this->isDone = true;
