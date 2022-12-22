@@ -9,6 +9,7 @@ class Task
     private ?int $priority = null;
     private bool $isDone = false;
     private User $user;
+    private array $comments = [];
 
     public function __construct(User $user, string $description)
     {
@@ -19,6 +20,11 @@ class Task
         $this->dateUpdated = new DateTime();
     }
 
+    public function addComment(Comment $comment): void
+    {
+        $this->comments[] = $comment;
+    }
+
     public function markAsDone()
     {
         if (!$this->isDone) {
@@ -26,6 +32,14 @@ class Task
             $this->dateUpdated = new DateTime();
             $this->dateDone = new DateTime();
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getComments(): array
+    {
+        return $this->comments;
     }
 
     /**
