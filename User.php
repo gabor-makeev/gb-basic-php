@@ -39,4 +39,36 @@ class User
         }
         return null;
     }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSex(): ?string
+    {
+        return $this->sex;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDateCreated(): DateTime
+    {
+        return $this->dateCreated;
+    }
 }
