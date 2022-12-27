@@ -11,11 +11,6 @@ if (isset($_SESSION['username'])) {
     $username = $user->getUsername();
 }
 
-if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-    unset($_SESSION['username']);
-    session_destroy();
-}
-
 $tasks = [
     'task 1',
     'task 2'
