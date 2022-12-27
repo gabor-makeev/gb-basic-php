@@ -21,4 +21,11 @@ if (isset($_POST['username'], $_POST['password'])) {
     }
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    unset($_SESSION['username']);
+    session_destroy();
+    header('Location: /');
+    die();
+}
+
 include "view/signin.php";
