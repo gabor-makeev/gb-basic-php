@@ -16,7 +16,7 @@ if (isset($_POST['username'], $_POST['password'])) {
         $error = 'A user with such account details was not found';
     } else {
         $_SESSION['username'] = $user;
-        header('Location: index.php');
+        header('Location: /');
         die();
     }
 }
