@@ -4,7 +4,7 @@ require_once "model/User.php";
 
 session_start();
 
-$pageHeader = "Welcome!";
+$pageHeader = "Добро пожаловать";
 
 $username = null;
 

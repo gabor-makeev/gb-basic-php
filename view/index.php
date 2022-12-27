@@ -1,6 +1,6 @@
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>Главная</title>
 </head>
 <body>
 <?php include "menu.php" ?>

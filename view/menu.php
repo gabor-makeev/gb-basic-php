@@ -1,8 +1,8 @@
-<a href="/">Main</a>
+<a href="/">Главная</a>
 <?php if (is_null($username)): ?>
-<a href="/?controller=security">Log in</a>
+<a href="/?controller=security">Войти</a>
 <?php endif; ?>
 <?php if (!is_null($username)): ?>
-<a href="/?controller=tasks">Tasks</a>
-<p>Welcome <?=$username?>! <a href="?controller=security&action=logout">[Exit]</a></p>
+<a href="/?controller=tasks">Задачи</a>
+<p>Рады вас приветствовать, <?=$username?>! <a href="?controller=security&action=logout">[Выйти]</a></p>
 <?php endif; ?>
