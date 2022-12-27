@@ -9,6 +9,9 @@ $username = null;
 if (isset($_SESSION['username'])) {
     $user = $_SESSION['username'];
     $username = $user->getUsername();
+} else {
+    header('Location: /');
+    die();
 }
 
 $tasks = [
