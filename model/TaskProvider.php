@@ -23,4 +23,10 @@ class TaskProvider
         $_SESSION['tasks'][] = $task;
         $this->tasks[] = $task;
     }
+
+    public function markTaskAsDone(int $key): void
+    {
+        $_SESSION['tasks'][$key]->setIsDone(true);
+        $this->tasks[$key]->setIsDone(true);
+    }
 }

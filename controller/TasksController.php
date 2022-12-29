@@ -28,7 +28,7 @@ if (isset($_POST['description']) && !empty($_POST['description'])) {
 if (isset($_GET['action']) && $_GET['action'] === 'complete') {
     $key = $_GET['key'];
 
-    $_SESSION['tasks'][$key]->setIsDone(true);
+    $taskProvider->markTaskAsDone($key);
 
     header('Location: /?controller=tasks');
     die();
