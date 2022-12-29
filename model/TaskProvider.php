@@ -2,13 +2,16 @@
 
 class TaskProvider
 {
+    private array $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = $_SESSION['tasks'] ?? [];
+    }
+
     public function getUndoneList(): ?array
     {
-        if (!isset($_SESSION['tasks'])) {
-            return null;
-        }
-
-        return array_filter($_SESSION['tasks'], function (Task $task): bool {
+        return array_filter($this->tasks, function (Task $task): bool {
             return !$task->isDone();
         });
     }
@@ -16,6 +19,8 @@ class TaskProvider
     public function addTask(string $description): void
     {
         $task = new Task($description);
+
         $_SESSION['tasks'][] = $task;
+        $this->tasks[] = $task;
     }
 }
