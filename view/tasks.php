@@ -12,7 +12,7 @@
 <?php if (!is_null($tasks)): ?>
     <?php foreach ($tasks as $task): ?>
         <div>
-            <?=$task->getDescription()?> <a href="/?controller=tasks&action=complete&key=<?=$task->getId()?>">[Готово]</a>
+            <?=$task->getDescription()?> <a href="/?controller=tasks&action=complete&id=<?=$task->getId()?>">[Готово]</a>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
