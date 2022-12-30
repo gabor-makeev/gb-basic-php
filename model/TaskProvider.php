@@ -1,11 +1,15 @@
 <?php
 
+require_once "Task.php";
+
 class TaskProvider
 {
+    private PDO $pdo;
     private array $tasks;
 
-    public function __construct()
+    public function __construct(PDO $pdo)
     {
+        $this->pdo = $pdo;
         $this->tasks = $_SESSION['tasks'] ?? [];
     }
 
@@ -16,12 +20,17 @@ class TaskProvider
         });
     }
 
-    public function addTask(string $description): void
+    public function addTask(int $userId, string $description): bool
     {
-        $task = new Task($description);
+        $statement = $this->pdo->prepare(
+            'INSERT INTO tasks (userId, description, isDone) VALUES (:userId, :description, :isDone)'
+        );
 
-        $_SESSION['tasks'][] = $task;
-        $this->tasks[] = $task;
+        return $statement->execute([
+            'userId' => $userId,
+            'description' => $description,
+            'isDone' => 0
+        ]);
     }
 
     public function markTaskAsDone(int $key): void
