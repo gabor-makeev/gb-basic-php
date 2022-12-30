@@ -20,10 +20,10 @@ if (isset($_SESSION['username'])) {
 $taskProvider = new TaskProvider($pdo);
 
 if (isset($_POST['description']) && !empty($_POST['description'])) {
-    $userId = $user->getId();
-    $description = $_POST['description'];
-
-    $taskProvider->addTask($userId, $description);
+    $taskProvider->addTask(
+        $user->getId(),
+        $_POST['description']
+    );
 
     header('Location: /?controller=tasks');
     die();
@@ -38,6 +38,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'complete') {
     die();
 }
 
-$tasks = $taskProvider->getUndoneList();
+$tasks = $taskProvider->getUndoneList($user->getId());
 
 require_once "view/tasks.php";

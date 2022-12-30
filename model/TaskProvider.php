@@ -5,19 +5,29 @@ require_once "Task.php";
 class TaskProvider
 {
     private PDO $pdo;
-    private array $tasks;
 
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
-        $this->tasks = $_SESSION['tasks'] ?? [];
     }
 
-    public function getUndoneList(): ?array
+    public function getUndoneList(int $userId): ?array
     {
-        return array_filter($this->tasks, function (Task $task): bool {
-            return !$task->isDone();
-        });
+        $undoneTasks = [];
+
+        $statement = $this->pdo->prepare(
+            'SELECT id, description, isDone FROM tasks WHERE userId = :userId'
+        );
+
+        $statement->execute([
+            'userId' => $userId
+        ]);
+
+        while ($statement && $undoneTask = $statement->fetchObject(Task::class)) {
+            $undoneTasks[] = $undoneTask;
+        };
+
+        return $undoneTasks;
     }
 
     public function addTask(int $userId, string $description): bool
