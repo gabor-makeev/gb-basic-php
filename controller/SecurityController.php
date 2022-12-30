@@ -14,7 +14,7 @@ if (isset($_POST['username'], $_POST['password'])) {
     $user = $userProvider->getByUsernameAndPassword($username, $password);
 
     if ($user === null) {
-        $error = 'A user with such account details was not found';
+        $error = 'Пользователь с такими данными не был найден';
     } else {
         $_SESSION['username'] = $user;
         header('Location: /');
