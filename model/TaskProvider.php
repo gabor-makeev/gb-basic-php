@@ -16,7 +16,7 @@ class TaskProvider
         $undoneTasks = [];
 
         $statement = $this->pdo->prepare(
-            'SELECT id, description, isDone FROM tasks WHERE userId = :userId'
+            'SELECT id, description, isDone FROM tasks WHERE userId = :userId AND isDone = 0'
         );
 
         $statement->execute([
@@ -43,9 +43,14 @@ class TaskProvider
         ]);
     }
 
-    public function markTaskAsDone(int $key): void
+    public function markTaskAsDone(int $id): bool
     {
-        $_SESSION['tasks'][$key]->setIsDone(true);
-        $this->tasks[$key]->setIsDone(true);
+        $statement = $this->pdo->prepare(
+            'UPDATE tasks SET isDone = 1 WHERE id = :id'
+        );
+
+        return $statement->execute([
+            'id' => $id
+        ]);
     }
 }

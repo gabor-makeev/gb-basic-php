@@ -30,9 +30,9 @@ if (isset($_POST['description']) && !empty($_POST['description'])) {
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'complete') {
-    $key = $_GET['key'];
+    $id = $_GET['id'];
 
-    $taskProvider->markTaskAsDone($key);
+    $taskProvider->markTaskAsDone($id);
 
     header('Location: /?controller=tasks');
     die();
