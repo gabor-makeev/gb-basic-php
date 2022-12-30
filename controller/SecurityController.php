@@ -29,4 +29,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     die();
 }
 
+if (isset($_SESSION['username'])) {
+    header('Location: /');
+    die();
+}
+
 include "view/signin.php";
