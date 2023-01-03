@@ -3,6 +3,7 @@
 require_once "model/User.php";
 require_once "model/Task.php";
 require_once "model/TaskProvider.php";
+$pdo = require 'db.php';
 
 session_start();
 
@@ -16,24 +17,27 @@ if (isset($_SESSION['username'])) {
     die();
 }
 
-$taskProvider = new TaskProvider();
+$taskProvider = new TaskProvider($pdo);
 
 if (isset($_POST['description']) && !empty($_POST['description'])) {
-    $taskProvider->addTask($_POST['description']);
+    $taskProvider->addTask(
+        $user->getId(),
+        $_POST['description']
+    );
 
     header('Location: /?controller=tasks');
     die();
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'complete') {
-    $key = $_GET['key'];
+    $id = $_GET['id'];
 
-    $taskProvider->markTaskAsDone($key);
+    $taskProvider->markTaskAsDone($id);
 
     header('Location: /?controller=tasks');
     die();
 }
 
-$tasks = $taskProvider->getUndoneList();
+$tasks = $taskProvider->getUndoneList($user->getId());
 
 require_once "view/tasks.php";

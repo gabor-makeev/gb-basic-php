@@ -2,12 +2,26 @@
 
 class Task
 {
+    private int $id;
     private string $description;
     private bool $isDone = false;
 
-    public function __construct(string $description)
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
-        $this->description = $description;
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -21,9 +35,11 @@ class Task
     /**
      * @param string $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
@@ -37,8 +53,10 @@ class Task
     /**
      * @param bool $isDone
      */
-    public function setIsDone(bool $isDone): void
+    public function setIsDone(bool $isDone): self
     {
         $this->isDone = $isDone;
+
+        return $this;
     }
 }

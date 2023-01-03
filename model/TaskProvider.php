@@ -1,32 +1,56 @@
 <?php
 
+require_once "Task.php";
+
 class TaskProvider
 {
-    private array $tasks;
+    private PDO $pdo;
 
-    public function __construct()
+    public function __construct(PDO $pdo)
     {
-        $this->tasks = $_SESSION['tasks'] ?? [];
+        $this->pdo = $pdo;
     }
 
-    public function getUndoneList(): ?array
+    public function getUndoneList(int $userId): ?array
     {
-        return array_filter($this->tasks, function (Task $task): bool {
-            return !$task->isDone();
-        });
+        $undoneTasks = [];
+
+        $statement = $this->pdo->prepare(
+            'SELECT id, description, isDone FROM tasks WHERE userId = :userId AND isDone = 0'
+        );
+
+        $statement->execute([
+            'userId' => $userId
+        ]);
+
+        while ($statement && $undoneTask = $statement->fetchObject(Task::class)) {
+            $undoneTasks[] = $undoneTask;
+        };
+
+        return $undoneTasks;
     }
 
-    public function addTask(string $description): void
+    public function addTask(int $userId, string $description): bool
     {
-        $task = new Task($description);
+        $statement = $this->pdo->prepare(
+            'INSERT INTO tasks (userId, description, isDone) VALUES (:userId, :description, :isDone)'
+        );
 
-        $_SESSION['tasks'][] = $task;
-        $this->tasks[] = $task;
+        return $statement->execute([
+            'userId' => $userId,
+            'description' => $description,
+            'isDone' => 0
+        ]);
     }
 
-    public function markTaskAsDone(int $key): void
+    public function markTaskAsDone(int $id): bool
     {
-        $_SESSION['tasks'][$key]->setIsDone(true);
-        $this->tasks[$key]->setIsDone(true);
+        $statement = $this->pdo->prepare(
+            'UPDATE tasks SET isDone = 1 WHERE id = :id'
+        );
+
+        return $statement->execute([
+            'id' => $id
+        ]);
     }
 }
